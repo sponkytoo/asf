@@ -28,6 +28,7 @@
 static char rn[] PROGMEM = "\r\n";
 
 void sha1mix(unsigned *r, unsigned *w);
+void test_sha1(void);
 
 static inline size_t base64len(size_t n)
 {
@@ -365,7 +366,7 @@ void wsGetHandshakeAnswer(const struct handshake *hs, uint8_t *outFrame,
     responseKey[base64Length-1] = '=';
     responseKey[base64Length] = '\0';
 
-    int written = sprintf_P((char *) outFrame,
+    size_t written = sprintf_P((char *) outFrame,
             PSTR("HTTP/1.1 101 Switching Protocols\r\n"
             "%s%s\r\n"
             "%s%s\r\n"

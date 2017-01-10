@@ -47,10 +47,13 @@ bool StreamActive = false;
 void error(const char *msg);
 int safeSend(SOCKET clientSocket, uint8_t *buffer, int32_t bufferSize);
 bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc);
+void my_memset(uint8_t *puc, uint8_t val, uint32_t size);
+void my_memcpy(uint8_t *puc1, uint8_t *puc2, uint32_t size);
+
 
 void my_memset(uint8_t *puc, uint8_t val, uint32_t size)
 {
-	int i;
+	uint32_t i;
 	for(i=0; i<size; i++)
 	{
 		*puc++ = val;
@@ -59,7 +62,7 @@ void my_memset(uint8_t *puc, uint8_t val, uint32_t size)
 
 void my_memcpy(uint8_t *puc1, uint8_t *puc2, uint32_t size)
 {
-	int i;
+	uint32_t i;
 	for(i=0; i<size; i++)
 	{
 		*puc1++ = *puc2++;
@@ -74,14 +77,15 @@ void error(const char *msg)
 
 int safeSend(SOCKET clientSocket, uint8_t *buffer, int32_t bufferSize)
 {
-    int32_t written;
+//    int32_t written;
 
 	buffer[bufferSize] = 0;
     printf("WS: out packet:\r\n%s",buffer);
 
     //while (bufferSize > NET_PRES_SocketWriteIsReady(clientSocket, bufferSize, 0));
 
-    written = send(clientSocket, buffer, bufferSize, 0); //MR:
+    //written = send(clientSocket, buffer, bufferSize, 0); //MR:
+	send(clientSocket, buffer, bufferSize, 0); //MR:
 
 	//if (written == -1)
 	//{
@@ -151,7 +155,7 @@ bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc)
         {
             close(clientSocket); //MR:
             printf("recv failed");
-            return;
+            return 1;
         }
 
         readedLength += readed;
@@ -272,8 +276,7 @@ bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc)
                 prepareBuffer;
                 wsMakeFrame(recievedString, dataSize, gBuffer, &frameSize, WS_TEXT_FRAME);
                 free(recievedString);
-                if (safeSend(clientSocket, gBuffer, frameSize) == EXIT_FAILURE)
-					goto CATCH;
+                if (safeSend(clientSocket, gBuffer, frameSize) == EXIT_FAILURE) goto CATCH;
                 initNewFrame;
 
             }
