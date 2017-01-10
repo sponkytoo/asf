@@ -1,5 +1,5 @@
 # from: https://community.particle.io/t/local-development-and-gdb-debugging-with-netbeans-a-step-by-step-guide/7829/3 
-# connect remote gdbserver on port 9025 (started with st-util -p 9025)
+# connect remote gdbserver on port 3333
 target remote localhost:3333
 
 # reset core and hold in reset
@@ -7,12 +7,14 @@ monitor reset halt
 
 # program core with supplied .elf file
 load
+#file winc1500_websocket_flash.elf 
 
 # jump to spark core reset handler
-jump Reset_Handler
+#jump Reset_Handler
 
 # remove all breakpoints
 delete
+#break main21.c:510
 
 # continue execution (TODO: continue in background so we can disconnect while running continues)
 continue
