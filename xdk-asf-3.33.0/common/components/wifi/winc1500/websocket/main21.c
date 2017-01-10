@@ -106,22 +106,22 @@
 
 #define STRING_EOL    "\r\n"
 #define STRING_HEADER "-- WINC1500 TCP server example --"STRING_EOL \
-	"-- "BOARD_NAME " --"STRING_EOL	\
-	"-- Compiled: "__DATE__ " "__TIME__ " --"STRING_EOL
+        "-- "BOARD_NAME " --"STRING_EOL \
+        "-- Compiled: "__DATE__ " "__TIME__ " --"STRING_EOL
 
 #define DEBUG_PRINT printf
 //#define DEBUG_PRINT 
 
-char Mesgs[9][25]={
-	"SOCKET_MSG_BIND",
-	"SOCKET_MSG_LISTEN",
-	"SOCKET_MSG_DNS_RESOLVE",
-	"SOCKET_MSG_ACCEPT",
-	"SOCKET_MSG_CONNECT",
-	"SOCKET_MSG_RECV",
-	"SOCKET_MSG_SEND",
-	"SOCKET_MSG_SENDTO",
-	"SOCKET_MSG_RECVFROM"
+char Mesgs[9][25] = {
+    "SOCKET_MSG_BIND",
+    "SOCKET_MSG_LISTEN",
+    "SOCKET_MSG_DNS_RESOLVE",
+    "SOCKET_MSG_ACCEPT",
+    "SOCKET_MSG_CONNECT",
+    "SOCKET_MSG_RECV",
+    "SOCKET_MSG_SEND",
+    "SOCKET_MSG_SENDTO",
+    "SOCKET_MSG_RECVFROM"
 };
 
 /** UART module for debug. */
@@ -129,12 +129,12 @@ static struct usart_module cdc_uart_module;
 
 /** Message format definitions. */
 typedef struct s_msg_wifi_product {
-	uint8_t name[9];
+    uint8_t name[9];
 } t_msg_wifi_product;
 
 /** Message format declarations. */
 //static t_msg_wifi_product msg_wifi_product = {
-	//.name = MAIN_WIFI_M2M_PRODUCT_NAME,
+//.name = MAIN_WIFI_M2M_PRODUCT_NAME,
 //};
 
 /** Receive buffer definition. */
@@ -149,19 +149,16 @@ static SOCKET tcp_ws_client_socket = -1;
 
 static int server_state = 0;
 
-bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc);
+bool clientWorker(SOCKET clientSocket, void *pvMsg, uint8_t *puc);
 void close_socket(SOCKET socket);
 
 /** Wi-Fi connection state */
 static uint8_t wifi_connected;
 
-
-void close_socket(SOCKET socket)
-{
-	printf("close socket %d\r\n",socket);
-	close(socket);
+void close_socket(SOCKET socket) {
+    printf("close socket %d\r\n", socket);
+    close(socket);
 }
-
 
 /**
  * \brief Callback to get the Data from socket.
@@ -183,245 +180,234 @@ void close_socket(SOCKET socket)
  *  - tstrSocketConnectMsg
  *  - tstrSocketRecvMsg
  */
-static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
-{
-	static int32_t to_send=0;
-	static char *puc;
-	static int send_summ=0;
-	
-	DEBUG_PRINT("socket_cb: sock %d u8Msg %s web_s %d web_c %d ws_s %d ws_c %d\r\n",sock,&Mesgs[u8Msg-1][0],tcp_web_server_socket,tcp_web_client_socket,tcp_ws_server_socket,tcp_ws_client_socket);
-		
-	if(sock == tcp_web_server_socket || sock == tcp_web_client_socket)
-	{
-		DEBUG_PRINT("socket_cb: web\r\n");
-		switch (u8Msg) {
-		/* Socket bind */
-		case SOCKET_MSG_BIND:
-		{
-			tstrSocketBindMsg *pstrBind = (tstrSocketBindMsg *)pvMsg;
-			if (pstrBind && pstrBind->status == 0) {
-				printf("socket_cb: bind success!\r\n");
-				listen(tcp_web_server_socket, 0);				
-			} else {
-				printf("socket_cb: bind error!\r\n");
-				close_socket(tcp_web_server_socket);
-				tcp_web_server_socket = -1;
-			}
-		}
-		break;
+static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg) {
+    static int32_t to_send = 0;
+    static char *puc;
+    static int send_summ = 0;
 
-		/* Socket listen */
-		case SOCKET_MSG_LISTEN:
-		{
-			tstrSocketListenMsg *pstrListen = (tstrSocketListenMsg *)pvMsg;
-			if (pstrListen && pstrListen->status == 0) {
-				printf("socket_cb: listen success!\r\n");
-				accept(tcp_web_server_socket, NULL, NULL);
-				server_state++;
-			} else {
-				printf("socket_cb: listen error!\r\n");
-				close_socket(tcp_web_server_socket);
-				tcp_web_server_socket = -1;
-			}
-		}
-		break;
+    DEBUG_PRINT("socket_cb: sock %d u8Msg %s web_s %d web_c %d ws_s %d ws_c %d\r\n", sock, &Mesgs[u8Msg - 1][0], tcp_web_server_socket, tcp_web_client_socket, tcp_ws_server_socket, tcp_ws_client_socket);
 
-		/* Connect accept */
-		case SOCKET_MSG_ACCEPT:
-		{
-			tstrSocketAcceptMsg *pstrAccept = (tstrSocketAcceptMsg *)pvMsg;
-			if (pstrAccept) {
-				printf("socket_cb: accept success!\r\n");
-				accept(tcp_web_server_socket, NULL, NULL);
-				tcp_web_client_socket = pstrAccept->sock;
-				recv(tcp_web_client_socket, gau8SocketTestBuffer, sizeof(gau8SocketTestBuffer), 0);
-				close_socket(tcp_web_server_socket);
-				tcp_web_server_socket = -1;
-			} else {
-				printf("socket_cb: accept error!\r\n");
-				close_socket(tcp_web_server_socket);
-				tcp_web_server_socket = -1;
-			}
-		}
-		break;
+    if (sock == tcp_web_server_socket || sock == tcp_web_client_socket) {
+        DEBUG_PRINT("socket_cb: web\r\n");
+        switch (u8Msg) {
+                /* Socket bind */
+            case SOCKET_MSG_BIND:
+            {
+                tstrSocketBindMsg *pstrBind = (tstrSocketBindMsg *) pvMsg;
+                if (pstrBind && pstrBind->status == 0) {
+                    printf("socket_cb: bind success!\r\n");
+                    listen(tcp_web_server_socket, 0);
+                } else {
+                    printf("socket_cb: bind error!\r\n");
+                    close_socket(tcp_web_server_socket);
+                    tcp_web_server_socket = -1;
+                }
+            }
+                break;
 
-		/* Message send */
-		case SOCKET_MSG_SEND:
-		{
-			int32_t temp_send;
-			if(to_send<MAIN_SEND_PACKET_SIZE)temp_send = to_send; else temp_send = MAIN_SEND_PACKET_SIZE;
-			send(tcp_web_client_socket, puc, temp_send, 0);
-			DEBUG_PRINT("socket_cb: temp_send %d to_send %d\r\n",(int)temp_send,(int)to_send);
-			to_send -= temp_send;
-			send_summ += temp_send;
-			puc += MAIN_SEND_PACKET_SIZE;
-		
-			if(to_send==0)
-			{
-				printf("socket_cb: send success %d bytes\r\n",send_summ);
-				printf("socket_cb: close web client socket %d\n\r",tcp_web_client_socket);
-				close_socket(tcp_web_client_socket);
-				tcp_web_client_socket = -1;		
-				server_state = 0;
-			}
-		}
-		break;
+                /* Socket listen */
+            case SOCKET_MSG_LISTEN:
+            {
+                tstrSocketListenMsg *pstrListen = (tstrSocketListenMsg *) pvMsg;
+                if (pstrListen && pstrListen->status == 0) {
+                    printf("socket_cb: listen success!\r\n");
+                    accept(tcp_web_server_socket, NULL, NULL);
+                    server_state++;
+                } else {
+                    printf("socket_cb: listen error!\r\n");
+                    close_socket(tcp_web_server_socket);
+                    tcp_web_server_socket = -1;
+                }
+            }
+                break;
 
-		/* Message receive */
-		case SOCKET_MSG_RECV:
-		{
-			tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *)pvMsg;
-			if (pstrRecv && pstrRecv->s16BufferSize > 0) 
-			{
-				printf("socket_cb: recv success!\r\n");
-				recv(tcp_web_client_socket, gau8SocketTestBuffer, sizeof(gau8SocketTestBuffer), 0);
-				printf("socket_cb: Received Bytes %d\r\n", pstrRecv->s16BufferSize  );
-				gau8SocketTestBuffer[pstrRecv->s16BufferSize]=0;
-				printf("socket_cb: Received String \r\n%s\r\n",gau8SocketTestBuffer);			
-				char rootIndex[]="GET / ";
-				char jqueryIndex[]="GET /jquery.js ";
-				char http_ans[200];
-				http_ans[0]=0;
+                /* Connect accept */
+            case SOCKET_MSG_ACCEPT:
+            {
+                tstrSocketAcceptMsg *pstrAccept = (tstrSocketAcceptMsg *) pvMsg;
+                if (pstrAccept) {
+                    printf("socket_cb: accept success!\r\n");
+                    accept(tcp_web_server_socket, NULL, NULL);
+                    tcp_web_client_socket = pstrAccept->sock;
+                    recv(tcp_web_client_socket, gau8SocketTestBuffer, sizeof (gau8SocketTestBuffer), 0);
+                    close_socket(tcp_web_server_socket);
+                    tcp_web_server_socket = -1;
+                } else {
+                    printf("socket_cb: accept error!\r\n");
+                    close_socket(tcp_web_server_socket);
+                    tcp_web_server_socket = -1;
+                }
+            }
+                break;
 
-				if(strstr((char *)gau8SocketTestBuffer,rootIndex))
-				{										
-					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",(int)my_page_length);		
-					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
-					to_send = my_page_length;
-					puc = (char *)my_page;
-					send_summ = 0;
-				}
-				else if(strstr((char *)gau8SocketTestBuffer,jqueryIndex))
-				{
-					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",(int)jquery_length);		
-					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
-					to_send = jquery_length;
-					puc = (char *)jquery;
-					send_summ = 0;
-				}
-				else
-				{
-					sprintf(http_ans,"HTTP/1.1 404 Not Found\r\n\r\n");
-					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
-					close_socket(tcp_web_client_socket);
-					tcp_web_client_socket = -1;
-					server_state=0;
-				}
-			    			 
-				printf("socket_cb: Send HTTP Answer\r\n%s",http_ans);			
-			} else {
-				printf("socket_cb: recv error!\r\n");
-				close_socket(tcp_web_server_socket);
-				close_socket(tcp_web_client_socket);				
-				tcp_web_server_socket = -1;
-				tcp_web_client_socket = -1;
-			}
-		}
+                /* Message send */
+            case SOCKET_MSG_SEND:
+            {
+                int32_t temp_send;
+                if (to_send < MAIN_SEND_PACKET_SIZE)temp_send = to_send;
+                else temp_send = MAIN_SEND_PACKET_SIZE;
+                send(tcp_web_client_socket, puc, temp_send, 0);
+                DEBUG_PRINT("socket_cb: temp_send %d to_send %d\r\n", (int) temp_send, (int) to_send);
+                to_send -= temp_send;
+                send_summ += temp_send;
+                puc += MAIN_SEND_PACKET_SIZE;
 
-		break;
+                if (to_send == 0) {
+                    printf("socket_cb: send success %d bytes\r\n", send_summ);
+                    printf("socket_cb: close web client socket %d\n\r", tcp_web_client_socket);
+                    close_socket(tcp_web_client_socket);
+                    tcp_web_client_socket = -1;
+                    server_state = 0;
+                }
+            }
+                break;
 
-		default:
-			break;
-		}
-	}
-	
-	
-	if(sock == tcp_ws_server_socket || sock == tcp_ws_client_socket)
-	{
-		printf("socket_cb: ws\r\n");
-		switch (u8Msg) {
-			/* Socket bind */
-			case SOCKET_MSG_BIND:
-			{
-				tstrSocketBindMsg *pstrBind = (tstrSocketBindMsg *)pvMsg;
-				if (pstrBind && pstrBind->status == 0) {
-					printf("socket_cb: bind success!\r\n");
-					listen(tcp_ws_server_socket, 0);
-					} else {
-					printf("socket_cb: bind error!\r\n");
-					close_socket(tcp_ws_server_socket);
-					tcp_ws_server_socket = -1;
-				}
-			}
-			break;
+                /* Message receive */
+            case SOCKET_MSG_RECV:
+            {
+                tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *) pvMsg;
+                if (pstrRecv && pstrRecv->s16BufferSize > 0) {
+                    printf("socket_cb: recv success!\r\n");
+                    recv(tcp_web_client_socket, gau8SocketTestBuffer, sizeof (gau8SocketTestBuffer), 0);
+                    printf("socket_cb: Received Bytes %d\r\n", pstrRecv->s16BufferSize);
+                    gau8SocketTestBuffer[pstrRecv->s16BufferSize] = 0;
+                    printf("socket_cb: Received String \r\n%s\r\n", gau8SocketTestBuffer);
+                    char rootIndex[] = "GET / ";
+                    char jqueryIndex[] = "GET /jquery.js ";
+                    char http_ans[200];
+                    http_ans[0] = 0;
 
-			/* Socket listen */
-			case SOCKET_MSG_LISTEN:
-			{
-				tstrSocketListenMsg *pstrListen = (tstrSocketListenMsg *)pvMsg;
-				if (pstrListen && pstrListen->status == 0) {
-					printf("socket_cb: listen success!\r\n");
-					accept(tcp_ws_server_socket, NULL, NULL);
-					server_state++;
-					} else {
-					printf("socket_cb: listen error!\r\n");
-					close_socket(tcp_ws_server_socket);
-					tcp_ws_server_socket = -1;
-				}
-			}
-			break;
+                    if (strstr((char *) gau8SocketTestBuffer, rootIndex)) {
+                        sprintf(http_ans, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n", (int) my_page_length);
+                        send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
+                        to_send = my_page_length;
+                        puc = (char *) my_page;
+                        send_summ = 0;
+                    } else if (strstr((char *) gau8SocketTestBuffer, jqueryIndex)) {
+                        sprintf(http_ans, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n", (int) jquery_length);
+                        send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
+                        to_send = jquery_length;
+                        puc = (char *) jquery;
+                        send_summ = 0;
+                    } else {
+                        sprintf(http_ans, "HTTP/1.1 404 Not Found\r\n\r\n");
+                        send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
+                        close_socket(tcp_web_client_socket);
+                        tcp_web_client_socket = -1;
+                        server_state = 0;
+                    }
 
-			/* Connect accept */
-			case SOCKET_MSG_ACCEPT:
-			{
-				tstrSocketAcceptMsg *pstrAccept = (tstrSocketAcceptMsg *)pvMsg;
-				if (pstrAccept) {
-					printf("socket_cb: accept success!\r\n");
-					accept(tcp_ws_server_socket, NULL, NULL);
-					tcp_ws_client_socket = pstrAccept->sock;
-					recv(tcp_ws_client_socket, gau8SocketTestBuffer, sizeof(gau8SocketTestBuffer), 0);
-					} else {
-					printf("socket_cb: accept error!\r\n");
-					close_socket(tcp_ws_server_socket);
-					tcp_ws_server_socket = -1;
-				}
-			}
-			break;
+                    printf("socket_cb: Send HTTP Answer\r\n%s", http_ans);
+                } else {
+                    printf("socket_cb: recv error!\r\n");
+                    close_socket(tcp_web_server_socket);
+                    close_socket(tcp_web_client_socket);
+                    tcp_web_server_socket = -1;
+                    tcp_web_client_socket = -1;
+                }
+            }
 
-			/* Message send */
-			case SOCKET_MSG_SEND:
-			{
-					printf("socket_cb: send success!\r\n");					
-			}
-			break;
+                break;
 
-			/* Message receive */
-			case SOCKET_MSG_RECV:
-			{
-				tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *)pvMsg;
-				if (pstrRecv && pstrRecv->s16BufferSize > 0) 
-				{
-//					int ix;
-					printf("socket_cb: recv success!\r\n");
-					recv(tcp_ws_client_socket, gau8SocketTestBuffer, sizeof(gau8SocketTestBuffer), 0);
-					printf("socket_cb: Received Bytes %d\r\n", pstrRecv->s16BufferSize  );
-					gau8SocketTestBuffer[pstrRecv->s16BufferSize]=0;
-					printf("socket_cb: Received String \r\n%s\r\n",gau8SocketTestBuffer);
+            default:
+                break;
+        }
+    }
 
-					
-//				   for(ix=0;ix<pstrRecv->s16BufferSize;ix++)
-//					{
-//						 printf("%02x:%c ",gau8SocketTestBuffer[ix],gau8SocketTestBuffer[ix]);
-//					}
-//					printf("\r\n");
 
-					clientWorker(tcp_ws_client_socket,pvMsg,gau8SocketTestBuffer);								
-				} 
-				else 
-				{
-					printf("socket_cb: recv error!\r\n");
-					close_socket(tcp_ws_server_socket);
-					tcp_ws_server_socket = -1;
-				}
-			}
+    if (sock == tcp_ws_server_socket || sock == tcp_ws_client_socket) {
+        printf("socket_cb: ws\r\n");
+        switch (u8Msg) {
+                /* Socket bind */
+            case SOCKET_MSG_BIND:
+            {
+                tstrSocketBindMsg *pstrBind = (tstrSocketBindMsg *) pvMsg;
+                if (pstrBind && pstrBind->status == 0) {
+                    printf("socket_cb: bind success!\r\n");
+                    listen(tcp_ws_server_socket, 0);
+                } else {
+                    printf("socket_cb: bind error!\r\n");
+                    close_socket(tcp_ws_server_socket);
+                    tcp_ws_server_socket = -1;
+                }
+            }
+                break;
 
-			break;
+                /* Socket listen */
+            case SOCKET_MSG_LISTEN:
+            {
+                tstrSocketListenMsg *pstrListen = (tstrSocketListenMsg *) pvMsg;
+                if (pstrListen && pstrListen->status == 0) {
+                    printf("socket_cb: listen success!\r\n");
+                    accept(tcp_ws_server_socket, NULL, NULL);
+                    server_state++;
+                } else {
+                    printf("socket_cb: listen error!\r\n");
+                    close_socket(tcp_ws_server_socket);
+                    tcp_ws_server_socket = -1;
+                }
+            }
+                break;
 
-			default:
-			break;
-		}
-	}	
-		
+                /* Connect accept */
+            case SOCKET_MSG_ACCEPT:
+            {
+                tstrSocketAcceptMsg *pstrAccept = (tstrSocketAcceptMsg *) pvMsg;
+                if (pstrAccept) {
+                    printf("socket_cb: accept success!\r\n");
+                    accept(tcp_ws_server_socket, NULL, NULL);
+                    tcp_ws_client_socket = pstrAccept->sock;
+                    recv(tcp_ws_client_socket, gau8SocketTestBuffer, sizeof (gau8SocketTestBuffer), 0);
+                } else {
+                    printf("socket_cb: accept error!\r\n");
+                    close_socket(tcp_ws_server_socket);
+                    tcp_ws_server_socket = -1;
+                }
+            }
+                break;
+
+                /* Message send */
+            case SOCKET_MSG_SEND:
+            {
+                printf("socket_cb: send success!\r\n");
+            }
+                break;
+
+                /* Message receive */
+            case SOCKET_MSG_RECV:
+            {
+                tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *) pvMsg;
+                if (pstrRecv && pstrRecv->s16BufferSize > 0) {
+                    //					int ix;
+                    printf("socket_cb: recv success!\r\n");
+                    recv(tcp_ws_client_socket, gau8SocketTestBuffer, sizeof (gau8SocketTestBuffer), 0);
+                    printf("socket_cb: Received Bytes %d\r\n", pstrRecv->s16BufferSize);
+                    gau8SocketTestBuffer[pstrRecv->s16BufferSize] = 0;
+                    printf("socket_cb: Received String \r\n%s\r\n", gau8SocketTestBuffer);
+
+
+                    //				   for(ix=0;ix<pstrRecv->s16BufferSize;ix++)
+                    //					{
+                    //						 printf("%02x:%c ",gau8SocketTestBuffer[ix],gau8SocketTestBuffer[ix]);
+                    //					}
+                    //					printf("\r\n");
+
+                    clientWorker(tcp_ws_client_socket, pvMsg, gau8SocketTestBuffer);
+                }
+                else {
+                    printf("socket_cb: recv error!\r\n");
+                    close_socket(tcp_ws_server_socket);
+                    tcp_ws_server_socket = -1;
+                }
+            }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
 }
 
 /**
@@ -449,54 +435,52 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
  *  - tstrM2mScanDone
  *  - tstrM2mWifiscanResult
  */
-static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
-{
-	switch (u8MsgType) {
-	case M2M_WIFI_RESP_CON_STATE_CHANGED:
-	{
-		tstrM2mWifiStateChanged *pstrWifiState = (tstrM2mWifiStateChanged *)pvMsg;
-		if (pstrWifiState->u8CurrState == M2M_WIFI_CONNECTED) {
-			printf("wifi_cb: M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED\r\n");
-			m2m_wifi_request_dhcp_client();
-		} else if (pstrWifiState->u8CurrState == M2M_WIFI_DISCONNECTED) {
-			printf("wifi_cb: M2M_WIFI_RESP_CON_STATE_CHANGED: DISCONNECTED\r\n");
-			wifi_connected = 0;
-			m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID), MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
-		}
-	}
-	break;
+static void wifi_cb(uint8_t u8MsgType, void *pvMsg) {
+    switch (u8MsgType) {
+        case M2M_WIFI_RESP_CON_STATE_CHANGED:
+        {
+            tstrM2mWifiStateChanged *pstrWifiState = (tstrM2mWifiStateChanged *) pvMsg;
+            if (pstrWifiState->u8CurrState == M2M_WIFI_CONNECTED) {
+                printf("wifi_cb: M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED\r\n");
+                m2m_wifi_request_dhcp_client();
+            } else if (pstrWifiState->u8CurrState == M2M_WIFI_DISCONNECTED) {
+                printf("wifi_cb: M2M_WIFI_RESP_CON_STATE_CHANGED: DISCONNECTED\r\n");
+                wifi_connected = 0;
+                m2m_wifi_connect((char *) MAIN_WLAN_SSID, sizeof (MAIN_WLAN_SSID), MAIN_WLAN_AUTH, (char *) MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
+            }
+        }
+            break;
 
-	case M2M_WIFI_REQ_DHCP_CONF:
-	{
-		uint8_t *pu8IPAddress = (uint8_t *)pvMsg;
-		wifi_connected = 1;
-		printf("wifi_cb: M2M_WIFI_REQ_DHCP_CONF: IP is %u.%u.%u.%u\r\n",
-				pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
-	}
-	break;
+        case M2M_WIFI_REQ_DHCP_CONF:
+        {
+            uint8_t *pu8IPAddress = (uint8_t *) pvMsg;
+            wifi_connected = 1;
+            printf("wifi_cb: M2M_WIFI_REQ_DHCP_CONF: IP is %u.%u.%u.%u\r\n",
+                    pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
+        }
+            break;
 
-	default:
-		break;
-	}
+        default:
+            break;
+    }
 }
 
 /**
  * \brief Configure UART console.
  */
-static void configure_console(void)
-{
-	struct usart_config usart_conf;
+static void configure_console(void) {
+    struct usart_config usart_conf;
 
-	usart_get_config_defaults(&usart_conf);
-	usart_conf.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
-	usart_conf.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
-	usart_conf.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
-	usart_conf.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
-	usart_conf.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
-	usart_conf.baudrate    = 115200;
+    usart_get_config_defaults(&usart_conf);
+    usart_conf.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
+    usart_conf.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
+    usart_conf.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
+    usart_conf.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
+    usart_conf.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
+    usart_conf.baudrate = 115200;
 
-	stdio_serial_init(&cdc_uart_module, EDBG_CDC_MODULE, &usart_conf);
-	usart_enable(&cdc_uart_module);
+    stdio_serial_init(&cdc_uart_module, EDBG_CDC_MODULE, &usart_conf);
+    usart_enable(&cdc_uart_module);
 }
 
 /**
@@ -506,96 +490,89 @@ static void configure_console(void)
  *
  * \return program return value.
  */
-int main(void)
-{
-	tstrWifiInitParam param;
-	int8_t ret;
-	struct sockaddr_in addr_web;
-	struct sockaddr_in addr_ws;
+int main(void) {
+    tstrWifiInitParam param;
+    int8_t ret;
+    struct sockaddr_in addr_web;
+    struct sockaddr_in addr_ws;
 
-	/* Initialize the board. */
-	system_init();
+    /* Initialize the board. */
+    system_init();
 
-	/* Initialize the UART console. */
-	configure_console();
-	printf(STRING_HEADER);
+    /* Initialize the UART console. */
+    configure_console();
+    printf(STRING_HEADER);
 
-	/* Initialize the BSP. */
-	nm_bsp_init();
+    /* Initialize the BSP. */
+    nm_bsp_init();
 
-	/* Initialize socket address structure. */
-	addr_web.sin_family = AF_INET;
-	addr_web.sin_port = _htons(MAIN_WIFI_WEB_SERVER_PORT);
-	addr_web.sin_addr.s_addr = 0;
+    /* Initialize socket address structure. */
+    addr_web.sin_family = AF_INET;
+    addr_web.sin_port = _htons(MAIN_WIFI_WEB_SERVER_PORT);
+    addr_web.sin_addr.s_addr = 0;
 
-	addr_ws.sin_family = AF_INET;
-	addr_ws.sin_port = _htons(MAIN_WIFI_WS_SERVER_PORT);
-	addr_ws.sin_addr.s_addr = 0;
-	
-	/* Initialize Wi-Fi parameters structure. */
-	memset((uint8_t *)&param, 0, sizeof(tstrWifiInitParam));
+    addr_ws.sin_family = AF_INET;
+    addr_ws.sin_port = _htons(MAIN_WIFI_WS_SERVER_PORT);
+    addr_ws.sin_addr.s_addr = 0;
 
-	/* Initialize Wi-Fi driver with data and status callbacks. */
-	param.pfAppWifiCb = wifi_cb;
-	ret = m2m_wifi_init(&param);
-	if (M2M_SUCCESS != ret) {
-		printf("main: m2m_wifi_init call error!(%d)\r\n", ret);
-		while (1) {
-		}
-	}
+    /* Initialize Wi-Fi parameters structure. */
+    memset((uint8_t *) & param, 0, sizeof (tstrWifiInitParam));
 
-	/* Initialize socket module */
-	socketInit();
-	registerSocketCallback(socket_cb, NULL);
+    /* Initialize Wi-Fi driver with data and status callbacks. */
+    param.pfAppWifiCb = wifi_cb;
+    ret = m2m_wifi_init(&param);
+    if (M2M_SUCCESS != ret) {
+        printf("main: m2m_wifi_init call error!(%d)\r\n", ret);
+        while (1) {
+        }
+    }
 
-	/* Connect to router. */
-	m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID), MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
+    /* Initialize socket module */
+    socketInit();
+    registerSocketCallback(socket_cb, NULL);
 
-	tcp_web_server_socket = -1;
-	tcp_web_client_socket = -1;
-	tcp_ws_server_socket = -1;
-	tcp_ws_client_socket = -1;
-	server_state = 0;
-	while (1) {
-		/* Handle pending events from network controller. */
-		m2m_wifi_handle_events(NULL);
+    /* Connect to router. */
+    m2m_wifi_connect((char *) MAIN_WLAN_SSID, sizeof (MAIN_WLAN_SSID), MAIN_WLAN_AUTH, (char *) MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
 
-		if (wifi_connected == M2M_WIFI_CONNECTED) {
-			
-			if(server_state==0)
-			{							
-				if (tcp_web_server_socket < 0) 
-				{
-					printf("main: Open Web Server\r\n");
-					/* Open TCP server socket */
-					if ((tcp_web_server_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-					{
-						printf("main: failed to create TCP server socket error!\r\n");
-						continue;
-					}
-					/* Bind service*/
-					bind(tcp_web_server_socket, (struct sockaddr *)&addr_web, sizeof(struct sockaddr_in));
-				}
-			}
-			
-			if(server_state==1)
-			{
-				if (tcp_ws_server_socket < 0) 
-				{
-					printf("main: Open WS Server\r\n");
-					/* Open TCP server socket */
-					if ((tcp_ws_server_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-					{
-						printf("main: failed to create TCP server socket error!\r\n");
-						continue;
-					}
-					/* Bind service*/
-					bind(tcp_ws_server_socket, (struct sockaddr *)&addr_ws, sizeof(struct sockaddr_in));
-				}			
-			}
-				
-		}
-	}
+    tcp_web_server_socket = -1;
+    tcp_web_client_socket = -1;
+    tcp_ws_server_socket = -1;
+    tcp_ws_client_socket = -1;
+    server_state = 0;
+    while (1) {
+        /* Handle pending events from network controller. */
+        m2m_wifi_handle_events(NULL);
 
-	return 0;
+        if (wifi_connected == M2M_WIFI_CONNECTED) {
+
+            if (server_state == 0) {
+                if (tcp_web_server_socket < 0) {
+                    printf("main: Open Web Server\r\n");
+                    /* Open TCP server socket */
+                    if ((tcp_web_server_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+                        printf("main: failed to create TCP server socket error!\r\n");
+                        continue;
+                    }
+                    /* Bind service*/
+                    bind(tcp_web_server_socket, (struct sockaddr *) &addr_web, sizeof (struct sockaddr_in));
+                }
+            }
+
+            if (server_state == 1) {
+                if (tcp_ws_server_socket < 0) {
+                    printf("main: Open WS Server\r\n");
+                    /* Open TCP server socket */
+                    if ((tcp_ws_server_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+                        printf("main: failed to create TCP server socket error!\r\n");
+                        continue;
+                    }
+                    /* Bind service*/
+                    bind(tcp_ws_server_socket, (struct sockaddr *) &addr_ws, sizeof (struct sockaddr_in));
+                }
+            }
+
+        }
+    }
+
+    return 0;
 }
