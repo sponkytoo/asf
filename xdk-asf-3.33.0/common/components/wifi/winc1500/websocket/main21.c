@@ -111,7 +111,7 @@
 #define DEBUG_PRINT printf
 //#define DEBUG_PRINT 
 
-char Mesgs[8][25]={
+char Mesgs[9][25]={
 	"SOCKET_MSG_BIND",
 	"SOCKET_MSG_LISTEN",
 	"SOCKET_MSG_DNS_RESOLVE",
@@ -149,6 +149,7 @@ static SOCKET tcp_ws_client_socket = -1;
 static int server_state = 0;
 
 bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc);
+void close_socket(SOCKET socket);
 
 /** Wi-Fi connection state */
 static uint8_t wifi_connected;
@@ -249,7 +250,7 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 			int32_t temp_send;
 			if(to_send<MAIN_SEND_PACKET_SIZE)temp_send = to_send; else temp_send = MAIN_SEND_PACKET_SIZE;
 			send(tcp_web_client_socket, puc, temp_send, 0);
-			DEBUG_PRINT("socket_cb: temp_send %d to_send %d\r\n",temp_send,to_send);
+			DEBUG_PRINT("socket_cb: temp_send %d to_send %d\r\n",(int)temp_send,(int)to_send);
 			to_send -= temp_send;
 			send_summ += temp_send;
 			puc += MAIN_SEND_PACKET_SIZE;
@@ -280,9 +281,9 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				char http_ans[200];
 				http_ans[0]=0;
 
-				if(strstr(gau8SocketTestBuffer,rootIndex))
+				if(strstr((char *)gau8SocketTestBuffer,rootIndex))
 				{										
-					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",my_page_length);		
+					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",(int)my_page_length);		
 					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
 				}
 				else

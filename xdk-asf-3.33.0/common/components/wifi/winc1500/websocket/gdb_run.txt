@@ -10,5 +10,47 @@ start telnet client for controlling the gdb server:
 start gdb client for arm architecture:
 	arm-none-eabi-gdb -tui --eval-command="target remote localhost:3333"
 
+GDB Commands:
+load ELF file:
+	(gdb) load winc1500_websocket_flash.elf
+Load the symbol table:
+	(gdb) file winc1500_websocket_flash.elf 
+set breakpint in main21.c line 540
+	(gdb) break main21.c:540
+
+
+OPENOCD DGB Server Commands:
+reset and halt the controller.This is nessassary berfore programming
+	reset
+	halt   
+
+
+
+
+=======================================================================================
+
+gzip -k check.html 
+srec_cat check.html.gz -binary -output my_page.c -c-Array my_page -include
+cp my_page.c ../
+cp my_page.h ../
+
+
+
+
+
+
+=======================================================================================
+from:
+https://fun-tech.se/stm32/OpenOCD/gdb.php
+
+DDD GUI Debugging:
+	ddd --eval-command="target remote localhost:3333" --debugger arm-none-eabi-gdb winc1500_websocket_flash.elf
+
+
+
+
+
+
+
 
 
