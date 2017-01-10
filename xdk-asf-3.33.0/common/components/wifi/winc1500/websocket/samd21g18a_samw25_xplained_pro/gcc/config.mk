@@ -69,6 +69,7 @@ CSRCS = \
        common/components/wifi/winc1500/driver/source/nmuart.c \
        common/components/wifi/winc1500/websocket/main21.c \
        common/components/wifi/winc1500/websocket/my_page.c \
+       common/components/wifi/winc1500/websocket/jquery.c \
        common/components/wifi/winc1500/websocket/websocket.c \
        common/components/wifi/winc1500/websocket/websocket_thread.c \
        common/components/wifi/winc1500/socket/source/socket.c \

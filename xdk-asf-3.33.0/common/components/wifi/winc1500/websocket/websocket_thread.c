@@ -36,7 +36,8 @@
 
 #define WS_PORT 8088
 #define BUF_LEN 10000
-//#define PACKET_DUMP
+
+//#define DEBUG_PACKET_PRINT
 
 uint8_t gBuffer[BUF_LEN];
 //extern WS_SERVER_DATA ws_serverData;
@@ -78,9 +79,20 @@ void error(const char *msg)
 int safeSend(SOCKET clientSocket, uint8_t *buffer, int32_t bufferSize)
 {
 //    int32_t written;
+#ifdef DEBUG_PACKET_PRINT
+	int ix;
+#endif
 
 	buffer[bufferSize] = 0;
-    printf("WS: out packet:\r\n%s",buffer);
+#ifdef DEBUG_PACKET_PRINT
+    printf("WS: out packet:\r\n");
+	   for(ix=0;ix<bufferSize;ix++)
+		{
+			 printf("%02x:%c ",buffer[ix],buffer[ix]);
+		}
+		printf("\r\n");
+#endif
+
 
     //while (bufferSize > NET_PRES_SocketWriteIsReady(clientSocket, bufferSize, 0));
 
@@ -115,6 +127,9 @@ bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc)
     static struct handshake hs;
     static int value;
 	static bool clientWorkerInit = true;
+#ifdef DEBUG_PACKET_PRINT
+	int ix;
+#endif
     
 	if(clientWorkerInit==true)
 	{
@@ -148,8 +163,13 @@ bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc)
 		//recv(clientSocket, gBuffer + readedLength, BUF_LEN - readedLength, 0); //0; //recv(clientSocket, gBuffer+readedLength, BUF_LEN-readedLength, 0); //MR:
         printf("WS: Taken\r\n");
 		gBuffer[pstrRecv->s16BufferSize]=0;
-		printf("%s\r\n",gBuffer);
-
+#ifdef DEBUG_PACKET_PRINT		
+	   for(ix=0;ix<pstrRecv->s16BufferSize;ix++)
+		{
+			 printf("%02x:%c ",gBuffer[ix],gBuffer[ix]);
+		}
+		printf("\r\n");
+#endif
         ssize_t readed = pstrRecv->s16BufferSize;
 		if (!readed)
         {
@@ -160,7 +180,15 @@ bool clientWorker(SOCKET clientSocket, void *pvMsg,uint8_t *puc)
 
         readedLength += readed;
 		gBuffer[readed]=0;
-		printf("in packet:\r\n%s",gBuffer);
+#ifdef DEBUG_PACKET_PRINT		
+		printf("in packet:\r\n");
+	   for(ix=0;ix<readed;ix++)
+		{
+			 printf("%02x:%c ",gBuffer[ix],gBuffer[ix]);
+		}
+		printf("\r\n");
+#endif
+
         assert(readedLength <= BUF_LEN);
 
         if (state == WS_STATE_OPENING)

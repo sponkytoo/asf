@@ -102,6 +102,7 @@
 #include "driver/include/m2m_wifi.h"
 #include "socket/include/socket.h"
 #include "my_page.h"
+#include "jquery.h"
 
 #define STRING_EOL    "\r\n"
 #define STRING_HEADER "-- WINC1500 TCP server example --"STRING_EOL \
@@ -278,6 +279,7 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				gau8SocketTestBuffer[pstrRecv->s16BufferSize]=0;
 				printf("socket_cb: Received String \r\n%s\r\n",gau8SocketTestBuffer);			
 				char rootIndex[]="GET / ";
+				char jqueryIndex[]="GET /jquery.js ";
 				char http_ans[200];
 				http_ans[0]=0;
 
@@ -285,6 +287,17 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				{										
 					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",(int)my_page_length);		
 					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
+					to_send = my_page_length;
+					puc = (char *)my_page;
+					send_summ = 0;
+				}
+				else if(strstr((char *)gau8SocketTestBuffer,jqueryIndex))
+				{
+					sprintf(http_ans,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Encoding: gzip\r\nContent-Length:%d\r\n\r\n",(int)jquery_length);		
+					send(tcp_web_client_socket, &http_ans, strlen(http_ans), 0);
+					to_send = jquery_length;
+					puc = (char *)jquery;
+					send_summ = 0;
 				}
 				else
 				{
@@ -294,17 +307,8 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 					tcp_web_client_socket = -1;
 					server_state=0;
 				}
-			    
-				to_send = my_page_length;
-				puc = (char *)my_page;
-				send_summ = 0;
-
-				//send(tcp_web_client_socket, puc, MAIN_PACKET_SIZE, 0);		
-				//to_send -= MAIN_PACKET_SIZE;
-				//puc += MAIN_PACKET_SIZE;
-			 
+			    			 
 				printf("socket_cb: Send HTTP Answer\r\n%s",http_ans);			
-				//printf("%s\r\n",http_ans);	
 			} else {
 				printf("socket_cb: recv error!\r\n");
 				close_socket(tcp_web_server_socket);
@@ -377,21 +381,7 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 			/* Message send */
 			case SOCKET_MSG_SEND:
 			{
-				//int32_t temp_send;
-				//if(to_send<MAIN_SEND_PACKET_SIZE)temp_send = to_send; else temp_send = MAIN_SEND_PACKET_SIZE;
-				//send(tcp_web_client_socket, puc, temp_send, 0);
-				//to_send -= temp_send;
-				//puc += MAIN_SEND_PACKET_SIZE;
-			//
-				//if(to_send==0)
-				//{
-					printf("socket_cb: send success!\r\n");
-					////printf("TCP Server Test Complete!\r\n");
-					//printf("close ws client socket %d\n\r",tcp_ws_client_socket);
-					//close_socket(tcp_ws_client_socket);
-					//tcp_ws_client_socket = -1;
-					////close_socket(tcp_server_socket);
-				//}
+					printf("socket_cb: send success!\r\n");					
 			}
 			break;
 
@@ -401,24 +391,21 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *)pvMsg;
 				if (pstrRecv && pstrRecv->s16BufferSize > 0) 
 				{
+//					int ix;
 					printf("socket_cb: recv success!\r\n");
 					recv(tcp_ws_client_socket, gau8SocketTestBuffer, sizeof(gau8SocketTestBuffer), 0);
 					printf("socket_cb: Received Bytes %d\r\n", pstrRecv->s16BufferSize  );
 					gau8SocketTestBuffer[pstrRecv->s16BufferSize]=0;
 					printf("socket_cb: Received String \r\n%s\r\n",gau8SocketTestBuffer);
-				    
-					clientWorker(tcp_ws_client_socket,pvMsg,gau8SocketTestBuffer);
-								
-					//char http_ans[]="HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length:32\r\n\r\n<html>The Femto Webserver</html>\r\n\r\n";
-					//send(tcp_client_socket, &http_ans, sizeof(http_ans), 0);				
-					//to_send = my_page_length;
-					//puc = (char *)my_page;				
-					//send(tcp_ws_client_socket, puc, MAIN_PACKET_SIZE, 0);
-					//to_send -= MAIN_PACKET_SIZE;
-					//puc += MAIN_PACKET_SIZE;
-				
-					//printf("socket_cb: Send WS Answere\r\n");
-					//printf("%s\r\n",http_ans);
+
+					
+//				   for(ix=0;ix<pstrRecv->s16BufferSize;ix++)
+//					{
+//						 printf("%02x:%c ",gau8SocketTestBuffer[ix],gau8SocketTestBuffer[ix]);
+//					}
+//					printf("\r\n");
+
+					clientWorker(tcp_ws_client_socket,pvMsg,gau8SocketTestBuffer);								
 				} 
 				else 
 				{
