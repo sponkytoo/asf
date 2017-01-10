@@ -1,0 +1,14 @@
+
+
+
+start open ocd gdb server:
+	openocd -f /usr/local/share/openocd/scripts/board/atmel_samd20_xplained_pro.cfg
+
+start telnet client for controlling the gdb server:
+	telnet localhost 4444
+
+start gdb client for arm architecture:
+	arm-none-eabi-gdb -tui --eval-command="target remote localhost:3333"
+
+
+
