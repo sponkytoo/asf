@@ -46,7 +46,20 @@
 # \asf_license_stop
 #
 
+.PHONY: all clean
+.SECONDARY: main-build
+
+all: pre-build main-build
+
+pre-build:
+	 ./pack.sh
+
+post-build:
+	@echo POST
+
 # Include the common Makefile, which will also include the project specific
 # config.mk file.
 MAKEFILE_PATH = ../../../../../../../sam0/utils/make/Makefile.sam.in
+main-build: 
 include $(MAKEFILE_PATH)
+
