@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="common">
+        <df name="components">
+          <df name="wifi">
+            <df name="winc1500">
+              <df name="bsp">
+                <df name="source">
+                </df>
+              </df>
+              <df name="bus_wrapper">
+                <df name="source">
+                </df>
+              </df>
+              <df name="common">
+                <df name="source">
+                </df>
+              </df>
+              <df name="driver">
+                <df name="source">
+                </df>
+              </df>
+              <df name="simple_tcp_server_example">
+              </df>
+              <df name="socket">
+                <df name="source">
+                </df>
+              </df>
+              <df name="spi_flash">
+                <df name="source">
+                </df>
+              </df>
+              <df name="websocket">
+              </df>
+            </df>
+          </df>
+        </df>
+        <df name="utils">
+          <df name="interrupt">
+          </df>
+        </df>
+      </df>
+      <df name="common2">
+        <df name="services">
+          <df name="delay">
+            <df name="sam0">
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="sam0">
+        <df name="boards">
+          <df name="samw25_xplained_pro">
+          </df>
+        </df>
+        <df name="drivers">
+          <df name="extint">
+            <df name="extint_sam_d_r_h">
+            </df>
+          </df>
+          <df name="port">
+          </df>
+          <df name="sercom">
+            <df name="spi">
+            </df>
+            <df name="usart">
+            </df>
+          </df>
+          <df name="system">
+            <df name="clock">
+              <df name="clock_samd21_r21_da_ha1">
+              </df>
+            </df>
+            <df name="interrupt">
+            </df>
+            <df name="pinmux">
+            </df>
+          </df>
+        </df>
+        <df name="utils">
+          <df name="cmsis">
+            <df name="samd21">
+              <df name="source">
+                <df name="gcc">
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="stdio">
+          </df>
+          <df name="syscalls">
+            <df name="gcc">
+            </df>
+          </df>
+        </df>
+      </df>
+      <in>asf.h</in>
+    </df>
+    <itemPath>gdb_start.txt</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_signals>
+        </gdb_signals>
+        <gdb_options>
+          <DebugOptions>
+            <option name="debug_command"
+                    value="arm-none-eabi-gdb winc1500_websocket_flash.elf -x gdb_start.txt"/>
+            <option name="debug_dir"
+                    value="/home/martin/atmel/asf/xdk-asf-3.33.0/common/components/wifi/winc1500/websocket/samd21g18a_samw25_xplained_pro/gcc/."/>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>arm-none-eabi-gdb main.elf -x gdb_start.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>arm-none-eabi-gdb winc1500_websocket_flash.elf -x gdb_start.txt</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>arm-none-eabi-gdb winc1500_websocket_flash.elf -x gdb_start.txt</runcommand>
+        <rundir>/home/martin/atmel/asf/xdk-asf-3.33.0/common/components/wifi/winc1500/websocket/samd21g18a_samw25_xplained_pro/gcc/.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -1,0 +1,96 @@
+./pack.sh
+Pre-Built-Step
+MKDIR   common/components/wifi/winc1500/bsp/source/
+CC      common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.o
+MKDIR   common/components/wifi/winc1500/bus_wrapper/source/
+CC      common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
+MKDIR   common/components/wifi/winc1500/common/source/
+CC      common/components/wifi/winc1500/common/source/nm_common.o
+MKDIR   common/components/wifi/winc1500/driver/source/
+CC      common/components/wifi/winc1500/driver/source/m2m_ate_mode.o
+CC      common/components/wifi/winc1500/driver/source/m2m_crypto.o
+CC      common/components/wifi/winc1500/driver/source/m2m_hif.o
+CC      common/components/wifi/winc1500/driver/source/m2m_ota.o
+CC      common/components/wifi/winc1500/driver/source/m2m_periph.o
+CC      common/components/wifi/winc1500/driver/source/m2m_wifi.o
+CC      common/components/wifi/winc1500/driver/source/nmasic.o
+CC      common/components/wifi/winc1500/driver/source/nmbus.o
+CC      common/components/wifi/winc1500/driver/source/nmdrv.o
+CC      common/components/wifi/winc1500/driver/source/nmi2c.o
+CC      common/components/wifi/winc1500/driver/source/nmspi.o
+CC      common/components/wifi/winc1500/driver/source/nmuart.o
+MKDIR   common/components/wifi/winc1500/websocket/
+CC      common/components/wifi/winc1500/websocket/main21.o
+CC      common/components/wifi/winc1500/websocket/my_page.o
+CC      common/components/wifi/winc1500/websocket/jquery.o
+CC      common/components/wifi/winc1500/websocket/websocket.o
+CC      common/components/wifi/winc1500/websocket/websocket_thread.o
+MKDIR   common/components/wifi/winc1500/socket/source/
+CC      common/components/wifi/winc1500/socket/source/socket.o
+MKDIR   common/components/wifi/winc1500/spi_flash/source/
+CC      common/components/wifi/winc1500/spi_flash/source/spi_flash.o
+MKDIR   common/utils/interrupt/
+CC      common/utils/interrupt/interrupt_sam_nvic.o
+MKDIR   common2/services/delay/sam0/
+CC      common2/services/delay/sam0/systick_counter.o
+MKDIR   sam0/boards/samw25_xplained_pro/
+CC      sam0/boards/samw25_xplained_pro/board_init.o
+MKDIR   sam0/drivers/extint/
+CC      sam0/drivers/extint/extint_callback.o
+MKDIR   sam0/drivers/extint/extint_sam_d_r_h/
+CC      sam0/drivers/extint/extint_sam_d_r_h/extint.o
+MKDIR   sam0/drivers/port/
+CC      sam0/drivers/port/port.o
+MKDIR   sam0/drivers/sercom/
+CC      sam0/drivers/sercom/sercom.o
+CC      sam0/drivers/sercom/sercom_interrupt.o
+MKDIR   sam0/drivers/sercom/spi/
+CC      sam0/drivers/sercom/spi/spi.o
+CC      sam0/drivers/sercom/spi/spi_interrupt.o
+MKDIR   sam0/drivers/sercom/usart/
+CC      sam0/drivers/sercom/usart/usart.o
+CC      sam0/drivers/sercom/usart/usart_interrupt.o
+MKDIR   sam0/drivers/system/clock/clock_samd21_r21_da_ha1/
+CC      sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+CC      sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+MKDIR   sam0/drivers/system/interrupt/
+CC      sam0/drivers/system/interrupt/system_interrupt.o
+MKDIR   sam0/drivers/system/pinmux/
+CC      sam0/drivers/system/pinmux/pinmux.o
+CC      sam0/drivers/system/system.o
+MKDIR   sam0/utils/cmsis/samd21/source/gcc/
+CC      sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+CC      sam0/utils/cmsis/samd21/source/system_samd21.o
+MKDIR   sam0/utils/stdio/
+CC      sam0/utils/stdio/read.o
+CC      sam0/utils/stdio/write.o
+MKDIR   sam0/utils/syscalls/gcc/
+CC      sam0/utils/syscalls/gcc/syscalls.o
+LN      winc1500_websocket_flash.elf
+SIZE    winc1500_websocket_flash.elf
+winc1500_websocket_flash.elf  :
+section               size         addr
+.text               0xfaf4          0x0
+.relocate            0x2d8   0x20000000
+.bss                0x2f44   0x200002d8
+.stack              0x2004   0x2000321c
+.ARM.attributes       0x28          0x0
+.comment              0x6e          0x0
+.debug_info        0x3712c          0x0
+.debug_abbrev       0x5d3a          0x0
+.debug_loc          0xe04c          0x0
+.debug_aranges       0xca0          0x0
+.debug_ranges        0xee8          0x0
+.debug_macro       0x20adf          0x0
+.debug_line        0x19a39          0x0
+.debug_str         0x91b6a          0x0
+.debug_frame        0x3064          0x0
+Total             0x1308ca
+
+
+   text	   data	    bss	    dec	    hex	filename
+ 0xfaf4	  0x2d8	 0x4f48	  85268	  14d14	winc1500_websocket_flash.elf
+OBJDUMP winc1500_websocket_flash.lss
+NM      winc1500_websocket_flash.sym
+OBJCOPY winc1500_websocket_flash.hex
+OBJCOPY winc1500_websocket_flash.bin

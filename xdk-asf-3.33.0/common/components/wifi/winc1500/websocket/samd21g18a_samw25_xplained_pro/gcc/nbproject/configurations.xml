@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+    </df>
+    <logicalFolder name="xdk-asf-3.33.0"
+                   displayName="xdk-asf-3.33.0"
+                   projectFiles="true"
+                   root="../../../../..">
+      <logicalFolder name="common" displayName="common" projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="wifi" displayName="wifi" projectFiles="true">
+            <logicalFolder name="winc1500" displayName="winc1500" projectFiles="true">
+              <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../bsp/source/nm_bsp_samd21.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="bus_wrapper" displayName="bus_wrapper" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../bus_wrapper/source/nm_bus_wrapper_samd21.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../common/source/nm_common.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../driver/source/m2m_ate_mode.c</itemPath>
+                  <itemPath>../../../driver/source/m2m_crypto.c</itemPath>
+                  <itemPath>../../../driver/source/m2m_hif.c</itemPath>
+                  <itemPath>../../../driver/source/m2m_hif.h</itemPath>
+                  <itemPath>../../../driver/source/m2m_ota.c</itemPath>
+                  <itemPath>../../../driver/source/m2m_periph.c</itemPath>
+                  <itemPath>../../../driver/source/m2m_wifi.c</itemPath>
+                  <itemPath>../../../driver/source/nmasic.c</itemPath>
+                  <itemPath>../../../driver/source/nmbus.c</itemPath>
+                  <itemPath>../../../driver/source/nmbus.h</itemPath>
+                  <itemPath>../../../driver/source/nmdrv.c</itemPath>
+                  <itemPath>../../../driver/source/nmi2c.c</itemPath>
+                  <itemPath>../../../driver/source/nmi2c.h</itemPath>
+                  <itemPath>../../../driver/source/nmspi.c</itemPath>
+                  <itemPath>../../../driver/source/nmspi.h</itemPath>
+                  <itemPath>../../../driver/source/nmuart.c</itemPath>
+                  <itemPath>../../../driver/source/nmuart.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="socket" displayName="socket" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../socket/source/socket.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="spi_flash" displayName="spi_flash" projectFiles="true">
+                <logicalFolder name="source" displayName="source" projectFiles="true">
+                  <itemPath>../../../spi_flash/source/spi_flash.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="websocket" displayName="websocket" projectFiles="true">
+                <logicalFolder name="samd21g18a_samw25_xplained_pro"
+                               displayName="samd21g18a_samw25_xplained_pro"
+                               projectFiles="true">
+                  <itemPath>../conf_board.h</itemPath>
+                  <itemPath>../conf_clocks.h</itemPath>
+                  <itemPath>../conf_extint.h</itemPath>
+                  <itemPath>../conf_spi.h</itemPath>
+                  <itemPath>../conf_winc.h</itemPath>
+                </logicalFolder>
+                <itemPath>../../www/check.html</itemPath>
+                <itemPath>../../jquery.c</itemPath>
+                <itemPath>../../jquery.h</itemPath>
+                <itemPath>../../main.h</itemPath>
+                <itemPath>../../main21.c</itemPath>
+                <itemPath>../../my_page.c</itemPath>
+                <itemPath>../../my_page.h</itemPath>
+                <itemPath>pack.sh</itemPath>
+                <itemPath>../../websocket.c</itemPath>
+                <itemPath>../../websocket.h</itemPath>
+                <itemPath>../../websocket_thread.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="utils" displayName="utils" projectFiles="true">
+          <logicalFolder name="interrupt" displayName="interrupt" projectFiles="true">
+            <itemPath>../../../../../../utils/interrupt/interrupt_sam_nvic.c</itemPath>
+            <itemPath>../../../../../../utils/interrupt/interrupt_sam_nvic.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="common2" displayName="common2" projectFiles="true">
+        <logicalFolder name="services" displayName="services" projectFiles="true">
+          <logicalFolder name="delay" displayName="delay" projectFiles="true">
+            <logicalFolder name="sam0" displayName="sam0" projectFiles="true">
+              <itemPath>../../../../../../../common2/services/delay/sam0/systick_counter.c</itemPath>
+              <itemPath>../../../../../../../common2/services/delay/sam0/systick_counter.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="sam0" displayName="sam0" projectFiles="true">
+        <logicalFolder name="boards" displayName="boards" projectFiles="true">
+          <logicalFolder name="samw25_xplained_pro"
+                         displayName="samw25_xplained_pro"
+                         projectFiles="true">
+            <itemPath>../../../../../../../sam0/boards/samw25_xplained_pro/board_init.c</itemPath>
+            <itemPath>../../../../../../../sam0/boards/samw25_xplained_pro/samw25_xplained_pro.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+          <logicalFolder name="extint" displayName="extint" projectFiles="true">
+            <logicalFolder name="extint_sam_d_r_h"
+                           displayName="extint_sam_d_r_h"
+                           projectFiles="true">
+              <itemPath>../../../../../../../sam0/drivers/extint/extint_sam_d_r_h/extint.c</itemPath>
+            </logicalFolder>
+            <itemPath>../../../../../../../sam0/drivers/extint/extint.h</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/extint/extint_callback.c</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/extint/extint_callback.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="port" displayName="port" projectFiles="true">
+            <itemPath>../../../../../../../sam0/drivers/port/port.c</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/port/port.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
+            <logicalFolder name="spi" displayName="spi" projectFiles="true">
+              <itemPath>../../../../../../../sam0/drivers/sercom/spi/spi.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/spi/spi.h</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/spi/spi_interrupt.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/spi/spi_interrupt.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usart" displayName="usart" projectFiles="true">
+              <itemPath>../../../../../../../sam0/drivers/sercom/usart/usart.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/usart/usart.h</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.h</itemPath>
+            </logicalFolder>
+            <itemPath>../../../../../../../sam0/drivers/sercom/sercom.c</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/sercom/sercom.h</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/sercom/sercom_interrupt.c</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/sercom/sercom_interrupt.h</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/sercom/sercom_pinout.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="clock" displayName="clock" projectFiles="true">
+              <logicalFolder name="clock_samd21_r21_da_ha1"
+                             displayName="clock_samd21_r21_da_ha1"
+                             projectFiles="true">
+                <itemPath>../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c</itemPath>
+                <itemPath>../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock_config_check.h</itemPath>
+                <itemPath>../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock_feature.h</itemPath>
+                <itemPath>../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c</itemPath>
+              </logicalFolder>
+              <itemPath>../../../../../../../sam0/drivers/system/clock/clock.h</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/system/clock/gclk.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="interrupt" displayName="interrupt" projectFiles="true">
+              <logicalFolder name="system_interrupt_samd21"
+                             displayName="system_interrupt_samd21"
+                             projectFiles="true">
+                <itemPath>../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21/system_interrupt_features.h</itemPath>
+              </logicalFolder>
+              <itemPath>../../../../../../../sam0/drivers/system/interrupt/system_interrupt.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/system/interrupt/system_interrupt.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pinmux" displayName="pinmux" projectFiles="true">
+              <itemPath>../../../../../../../sam0/drivers/system/pinmux/pinmux.c</itemPath>
+              <itemPath>../../../../../../../sam0/drivers/system/pinmux/pinmux.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="power" displayName="power" projectFiles="true">
+              <logicalFolder name="power_sam_d_r_h"
+                             displayName="power_sam_d_r_h"
+                             projectFiles="true">
+                <itemPath>../../../../../../../sam0/drivers/system/power/power_sam_d_r_h/power.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <logicalFolder name="reset_sam_d_r_h"
+                             displayName="reset_sam_d_r_h"
+                             projectFiles="true">
+                <itemPath>../../../../../../../sam0/drivers/system/reset/reset_sam_d_r_h/reset.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <itemPath>../../../../../../../sam0/drivers/system/system.c</itemPath>
+            <itemPath>../../../../../../../sam0/drivers/system/system.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="utils" displayName="utils" projectFiles="true">
+          <logicalFolder name="cmsis" displayName="cmsis" projectFiles="true">
+            <logicalFolder name="samd21" displayName="samd21" projectFiles="true">
+              <logicalFolder name="source" displayName="source" projectFiles="true">
+                <logicalFolder name="gcc" displayName="gcc" projectFiles="true">
+                  <itemPath>../../../../../../../sam0/utils/cmsis/samd21/source/gcc/startup_samd21.c</itemPath>
+                </logicalFolder>
+                <itemPath>../../../../../../../sam0/utils/cmsis/samd21/source/system_samd21.c</itemPath>
+                <itemPath>../../../../../../../sam0/utils/cmsis/samd21/source/system_samd21.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
+            <logicalFolder name="stdio_serial"
+                           displayName="stdio_serial"
+                           projectFiles="true">
+              <itemPath>../../../../../../../sam0/utils/stdio/stdio_serial/stdio_serial.h</itemPath>
+            </logicalFolder>
+            <itemPath>../../../../../../../sam0/utils/stdio/read.c</itemPath>
+            <itemPath>../../../../../../../sam0/utils/stdio/write.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="syscalls" displayName="syscalls" projectFiles="true">
+            <logicalFolder name="gcc" displayName="gcc" projectFiles="true">
+              <itemPath>../../../../../../../sam0/utils/syscalls/gcc/syscalls.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+    <itemPath>gdb_start.txt</itemPath>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>ARM_Embedded|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-O1 -std=gnu99"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile USE_SWD_JTAG=y</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>winc1500_websocket_flash.elf</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>../../../../../../boards</pElem>
+              <pElem>..</pElem>
+              <pElem>../..</pElem>
+              <pElem>../../script</pElem>
+              <pElem>../../../../../../services/serial</pElem>
+              <pElem>../../../../../../utils</pElem>
+              <pElem>../../../../../../../common2/services/delay</pElem>
+              <pElem>../../../../../../../common2/services/delay/sam0</pElem>
+              <pElem>../../../../../../../sam0/boards</pElem>
+              <pElem>../../../../../../../sam0/boards/samw25_xplained_pro</pElem>
+              <pElem>../../../../../../../sam0/drivers/extint</pElem>
+              <pElem>../../../../../../../sam0/drivers/extint/extint_sam_d_r_h</pElem>
+              <pElem>../../../../../../../sam0/drivers/port</pElem>
+              <pElem>../../../../../../../sam0/drivers/sercom</pElem>
+              <pElem>../../../../../../../sam0/drivers/sercom/spi</pElem>
+              <pElem>../../../../../../../sam0/drivers/sercom/usart</pElem>
+              <pElem>../../../../../../../sam0/drivers/system</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/clock</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/interrupt</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/pinmux</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/power</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/power/power_sam_d_r_h</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/reset</pElem>
+              <pElem>../../../../../../../sam0/drivers/system/reset/reset_sam_d_r_h</pElem>
+              <pElem>../../../../../../../sam0/utils</pElem>
+              <pElem>../../../../../../../sam0/utils/cmsis/samd21/include</pElem>
+              <pElem>../../../../../../../sam0/utils/cmsis/samd21/source</pElem>
+              <pElem>../../../../../../../sam0/utils/header_files</pElem>
+              <pElem>../../../../../../../sam0/utils/preprocessor</pElem>
+              <pElem>../../../../../../../sam0/utils/stdio/stdio_serial</pElem>
+              <pElem>../../../../../../../thirdparty/CMSIS/Include</pElem>
+              <pElem>../../../../../../../thirdparty/CMSIS/Lib/GCC</pElem>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>=__samd21g18a__</Elem>
+              <Elem>ARM_MATH_CM0PLUS=true</Elem>
+              <Elem>BOARD=SAMW25_XPLAINED_PRO</Elem>
+              <Elem>EXTINT_CALLBACK_MODE=true</Elem>
+              <Elem>SPI_CALLBACK_MODE=true</Elem>
+              <Elem>SYSTICK_MODE</Elem>
+              <Elem>USART_CALLBACK_MODE=true</Elem>
+              <Elem>__SAMD21G18A__</Elem>
+              <Elem>printf=iprintf</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="../../../../../../../common2/services/delay/sam0/systick_counter.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/boards/samw25_xplained_pro/board_init.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/extint/extint_callback.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/extint/extint_sam_d_r_h/extint.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/port/port.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/sercom.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/sercom_interrupt.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/spi/spi.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/spi/spi_interrupt.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/usart/usart.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/system/interrupt/system_interrupt.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/system/pinmux/pinmux.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/drivers/system/system.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/utils/cmsis/samd21/source/gcc/startup_samd21.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/utils/cmsis/samd21/source/system_samd21.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/utils/stdio/read.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/utils/stdio/write.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../../sam0/utils/syscalls/gcc/syscalls.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../../../../utils/interrupt/interrupt_sam_nvic.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../bsp/source/nm_bsp_samd21.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../bus_wrapper/source/nm_bus_wrapper_samd21.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../common/source/nm_common.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_ate_mode.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_crypto.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_hif.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_ota.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_periph.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/m2m_wifi.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmasic.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmbus.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmdrv.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmi2c.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmspi.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../driver/source/nmuart.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../socket/source/socket.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../../spi_flash/source/spi_flash.c"
+            ex="false"
+            tool="0"
+            flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../jquery.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../main21.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../my_page.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../websocket.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../websocket_thread.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="../../www/check.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="gdb_start.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="pack.sh" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
