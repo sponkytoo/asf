@@ -47,8 +47,8 @@ PART = samd21g18a
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
-TARGET_FLASH = winc1500_simple_tcp_server_example_flash.elf
-TARGET_SRAM = winc1500_simple_tcp_server_example_sram.elf
+TARGET_FLASH = winc1500_websocket_flash.elf
+TARGET_SRAM = winc1500_websocket_sram.elf
 
 # List of C source files.
 CSRCS = \
@@ -67,7 +67,10 @@ CSRCS = \
        common/components/wifi/winc1500/driver/source/nmi2c.c \
        common/components/wifi/winc1500/driver/source/nmspi.c \
        common/components/wifi/winc1500/driver/source/nmuart.c \
-       common/components/wifi/winc1500/simple_tcp_server_example/main21.c \
+       common/components/wifi/winc1500/websocket/main21.c \
+       common/components/wifi/winc1500/websocket/my_page.c \
+       common/components/wifi/winc1500/websocket/websocket.c \
+       common/components/wifi/winc1500/websocket/websocket_thread.c \
        common/components/wifi/winc1500/socket/source/socket.c \
        common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/utils/interrupt/interrupt_sam_nvic.c        \
@@ -100,9 +103,9 @@ ASSRCS =
 INC_PATH = \
        common/boards                                      \
        common/components/wifi/winc1500                    \
-       common/components/wifi/winc1500/simple_tcp_server_example \
-       common/components/wifi/winc1500/simple_tcp_server_example/samd21g18a_samw25_xplained_pro \
-       common/components/wifi/winc1500/simple_tcp_server_example/script \
+       common/components/wifi/winc1500/websocket \
+       common/components/wifi/winc1500/websocket/samd21g18a_samw25_xplained_pro \
+       common/components/wifi/winc1500/websocket/script \
        common/services/serial                             \
        common/utils                                       \
        common2/services/delay                             \
@@ -133,7 +136,7 @@ INC_PATH = \
        sam0/utils/stdio/stdio_serial                      \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC \
-       common/components/wifi/winc1500/simple_tcp_server_example/samd21g18a_samw25_xplained_pro/gcc
+       common/components/wifi/winc1500/websocket/samd21g18a_samw25_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \

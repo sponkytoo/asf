@@ -46,15 +46,18 @@ extern "C" {
 #endif
 
 /** Wi-Fi Settings */
-#define MAIN_WLAN_SSID                    "DEMO_AP" /**< Destination SSID */
+#define MAIN_WLAN_SSID                    "MySpot" /**< Destination SSID */
 #define MAIN_WLAN_AUTH                    M2M_WIFI_SEC_WPA_PSK /**< Security manner */
-#define MAIN_WLAN_PSK                     "12345678" /**< Password for Destination SSID */
+#define MAIN_WLAN_PSK                     "password" /**< Password for Destination SSID */
 #define MAIN_WIFI_M2M_PRODUCT_NAME        "NMCTemp"
 #define MAIN_WIFI_M2M_SERVER_IP           0xFFFFFFFF /* 255.255.255.255 */
-#define MAIN_WIFI_M2M_SERVER_PORT         (6666)
-#define MAIN_WIFI_M2M_REPORT_INTERVAL     (1000)
+#define MAIN_WIFI_WEB_SERVER_PORT         (80)
+#define MAIN_WIFI_WS_SERVER_PORT         (8088)
+#define MAIN_WIFI_WEB_REPORT_INTERVAL     (1000)
 
-#define MAIN_WIFI_M2M_BUFFER_SIZE          1460
+#define MAIN_WIFI_WEB_BUFFER_SIZE          1460
+
+#define  MAIN_SEND_PACKET_SIZE			  1024
 
 #ifdef __cplusplus
 }
